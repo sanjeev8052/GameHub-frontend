@@ -12,7 +12,7 @@ export const SocketProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const newSocket = io('http://localhost:5000'); // Update with your server URL
+        const newSocket = io(import.meta.env.VITE_SOCKET_URL); // Use environment variable
         setSocket(newSocket);
 
         newSocket.on('online-users', (users) => setOnlineUsers(users));
