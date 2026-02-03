@@ -17,33 +17,33 @@ const BingoLobby = ({ onBack }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-20 px-6 space-y-12">
-      <button onClick={onBack} className="text-slate-500 hover:text-white flex items-center gap-2 font-bold mb-8">
+    <div className="max-w-4xl mx-auto py-10 md:py-20 px-4 md:px-6 space-y-10 md:space-y-12">
+      <button onClick={onBack} className="text-slate-500 hover:text-white flex items-center gap-2 font-bold mb-4 md:mb-8 text-sm md:text-base">
         &larr; BACK TO GAMES
       </button>
 
       {view === 'main' && (
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="glass p-10 rounded-[2.5rem] border-white/5 space-y-8 flex flex-col">
-            <h3 className="text-3xl font-black">QUICK MATCH</h3>
-            <p className="text-slate-500 font-medium">Jump into a lobby with random players.</p>
-            <div className="flex gap-4 mt-auto">
-              <button onClick={() => joinMatchmaking(2)} className="flex-1 btn-primary py-4">2 PLAYER</button>
-              <button onClick={() => joinMatchmaking(3)} className="flex-1 btn-primary py-4">3 PLAYER</button>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div className="glass p-6 md:p-10 rounded-3xl md:rounded-[2.5rem] border-white/5 space-y-6 md:space-y-8 flex flex-col">
+            <h3 className="text-2xl md:text-3xl font-black">QUICK MATCH</h3>
+            <p className="text-sm md:text-base text-slate-500 font-medium">Jump into a lobby with random players.</p>
+            <div className="flex gap-3 md:gap-4 mt-auto">
+              <button onClick={() => joinMatchmaking(2)} className="flex-1 btn-primary py-3 md:py-4 text-sm md:text-base">2 PLAYER</button>
+              <button onClick={() => joinMatchmaking(3)} className="flex-1 btn-primary py-3 md:py-4 text-sm md:text-base">3 PLAYER</button>
             </div>
           </div>
 
-          <div className="glass p-10 rounded-[2.5rem] border-blue-500/20 space-y-8 flex flex-col">
-            <h3 className="text-3xl font-black text-blue-400">FRIENDS</h3>
-            <p className="text-slate-500 font-medium">Invite your squad to a private arena.</p>
-            <div className="flex flex-col gap-4 mt-auto">
+          <div className="glass p-6 md:p-10 rounded-3xl md:rounded-[2.5rem] border-blue-500/20 space-y-6 md:space-y-8 flex flex-col">
+            <h3 className="text-2xl md:text-3xl font-black text-blue-400">FRIENDS</h3>
+            <p className="text-sm md:text-base text-slate-500 font-medium">Invite your squad to a private arena.</p>
+            <div className="flex flex-col gap-3 md:gap-4 mt-auto">
               <button
                 onClick={() => socket.emit('create-private-room', { gameType: 'bingo' })}
-                className="w-full btn-secondary py-4"
+                className="w-full btn-secondary py-3 md:py-4 text-sm md:text-base"
               >
                 HOST PRIVATE GAME
               </button>
-              <button onClick={() => setView('joining')} className="w-full bg-white/5 py-4 rounded-full font-bold">
+              <button onClick={() => setView('joining')} className="w-full bg-white/5 py-3 md:py-4 rounded-full font-bold text-sm md:text-base">
                 ENTER INVITE CODE
               </button>
             </div>
@@ -56,15 +56,15 @@ const BingoLobby = ({ onBack }) => {
       )}
 
       {view === 'waiting' && (
-        <div className="flex flex-col items-center justify-center py-20 space-y-8">
+        <div className="flex flex-col items-center justify-center py-12 md:py-20 space-y-6 md:space-y-8">
           <div className="relative">
-            <div className="w-24 h-24 border-4 border-rose-500/20 border-t-rose-500 rounded-full animate-spin"></div>
+            <div className="w-16 h-16 md:w-24 md:h-24 border-4 border-rose-500/20 border-t-rose-500 rounded-full animate-spin"></div>
           </div>
-          <div className="text-center space-y-2">
-            <h3 className="text-2xl font-black italic">MATCHMAKING...</h3>
-            <p className="text-slate-500 font-bold uppercase text-xs tracking-widest">Searching for opponents</p>
+          <div className="text-center space-y-1 md:space-y-2">
+            <h3 className="text-xl md:text-2xl font-black italic">MATCHMAKING...</h3>
+            <p className="text-[10px] md:text-xs text-slate-500 font-bold uppercase tracking-widest">Searching for opponents</p>
           </div>
-          <button onClick={() => setView('main')} className="text-slate-600 font-bold hover:text-white transition-colors">CANCEL QUEUE</button>
+          <button onClick={() => setView('main')} className="text-slate-600 font-bold hover:text-white transition-colors text-xs md:text-sm">CANCEL QUEUE</button>
         </div>
       )}
     </div>
@@ -83,24 +83,25 @@ const JoinPrivate = ({ onCancel }) => {
   };
 
   return (
-    <div className="glass p-10 rounded-[2.5rem] max-w-md mx-auto space-y-8 border-white/10 shadow-3xl">
-      <h3 className="text-3xl font-black uppercase tracking-tight text-blue-400">Join Arena</h3>
+    <div className="glass p-6 md:p-10 rounded-3xl md:rounded-[2.5rem] max-w-md mx-auto space-y-6 md:space-y-8 border-white/10 shadow-3xl">
+      <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-blue-400">Join Arena</h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
           placeholder="ENTER CODE"
-          className="w-full bg-slate-900/50 border border-white/10 rounded-2xl py-5 px-6 text-2xl font-black text-center tracking-widest outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full bg-slate-900/50 border border-white/10 rounded-xl md:rounded-2xl py-4 md:py-5 px-5 md:px-6 text-xl md:text-2xl font-black text-center tracking-widest outline-none focus:ring-2 focus:ring-blue-500"
           value={code}
           onChange={(e) => setCode(e.target.value.toUpperCase())}
         />
-        <button type="submit" className="w-full btn-primary bg-blue-600 hover:bg-blue-500 py-4 shadow-blue-600/20">
+        <button type="submit" className="w-full btn-primary bg-blue-600 hover:bg-blue-500 py-3 md:py-4 shadow-blue-600/20 text-sm md:text-base">
           ENTER BATTLE
         </button>
       </form>
-      <button onClick={onCancel} className="w-full text-slate-600 font-bold text-xs uppercase tracking-widest">CANCEL</button>
+      <button onClick={onCancel} className="w-full text-slate-600 font-bold text-[10px] md:text-xs uppercase tracking-widest">CANCEL</button>
     </div>
   );
 };
+
 
 const AppContent = () => {
   const { socket } = useSocket();
@@ -131,37 +132,38 @@ const AppContent = () => {
   return (
     <div className="min-h-screen flex flex-col">
       {currentScreen !== 'game' && (
-        <nav className="border-b border-white/5 py-4 px-8 flex justify-between items-center glass sticky top-0 z-40 shrink-0">
+        <nav className="border-b border-white/5 py-4 px-4 md:px-8 flex justify-between items-center glass sticky top-0 z-[100] shrink-0 gap-2">
           <div
-            className="flex items-center gap-3 cursor-pointer"
+            className="flex items-center gap-2 md:gap-3 cursor-pointer shrink-0"
             onClick={() => { setCurrentScreen('home'); setGameData(null); }}
           >
-            <div className="p-2 bg-rose-600 rounded-xl shadow-lg shadow-rose-600/20 text-white">
-              <Gamepad2 size={24} />
+            <div className="p-2 bg-rose-600 rounded-lg md:rounded-xl shadow-lg shadow-rose-600/20 text-white">
+              <Gamepad2 size={18} className="md:w-6 md:h-6" />
             </div>
-            <span className="text-2xl font-black tracking-tighter">GAMEHUB</span>
+            <span className="text-lg md:text-2xl font-black tracking-tighter">GAMEHUB</span>
           </div>
 
           {user && (
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 md:gap-6 ml-auto">
+              <div className="flex items-center gap-2 md:gap-3">
                 <div className="text-right">
-                  <p className="text-[10px] font-black text-slate-500 uppercase">Authenticated</p>
-                  <p className="text-sm font-bold text-rose-500">{user.username}</p>
+                  <p className="text-[10px] font-black text-slate-500 uppercase hidden md:block">Authenticated</p>
+                  <p className="text-xs md:text-sm font-bold text-rose-500 truncate max-w-[80px] md:max-w-none">{user.name}</p>
                 </div>
-                <div className="p-2 bg-white/5 rounded-xl text-slate-400">
-                  <UserIcon size={20} />
+                <div className="p-1.5 md:p-2 bg-white/5 rounded-lg md:rounded-xl text-slate-400">
+                  <UserIcon size={16} className="md:w-5 md:h-5" />
                 </div>
               </div>
               <button
                 onClick={logout}
-                className="text-[10px] font-black bg-white/5 hover:bg-rose-500/10 px-4 py-2 rounded-full border border-white/5 transition-all"
+                className="text-[8px] md:text-[10px] font-black bg-white/5 hover:bg-rose-500/10 px-2.5 md:px-4 py-1.5 md:py-2 rounded-full border border-white/5 transition-all shrink-0"
               >
                 LOGOUT
               </button>
             </div>
           )}
         </nav>
+
       )}
 
       <main className="flex-1">

@@ -70,9 +70,7 @@ body {
 }
 
 @media (max-width: 1024px) {
-  .win-line {
-    height: 1.5px !important;
-  }
+  /* Removed height override that broke vertical lines */
 }
 
 body {
