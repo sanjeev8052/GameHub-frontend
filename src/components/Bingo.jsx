@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSocket } from '../context/SocketContext';
 import confetti from 'canvas-confetti';
-import { Trophy, Star, MessageCircle, Send, Users, Shuffle, RotateCcw, GripVertical, Settings, History, Swords, Info, Home as HomeIcon, Volume2, VolumeX, Music, ChevronDown } from 'lucide-react';
+import { Trophy, Star, MessageCircle, Send, Users, Shuffle, RotateCcw, GripVertical, Settings, History, Swords, Info, Home as HomeIcon, Volume2, VolumeX, Music, ChevronDown, Mic, MicOff } from 'lucide-react';
+import VoiceChat from './VoiceChat';
 
 // Audio Assets
 import winSound from '../assets/music/do_what_you_want-bomb-explosion-469038.mp3';
@@ -37,6 +38,7 @@ const Bingo = ({ gameId, inviteCode, initialPlayers, initialMaxNumber = 75, init
 
     // Sound State
     const [isMuted, setIsMuted] = useState(false);
+    const [isVoiceMuted, setIsVoiceMuted] = useState(true); // Default voice to muted
     const [selectedLineSound, setSelectedLineSound] = useState('Knife cut'); // 'Knife cut' or 'faaah'
     const [isSoundMenuOpen, setIsSoundMenuOpen] = useState(false);
 
@@ -402,6 +404,20 @@ const Bingo = ({ gameId, inviteCode, initialPlayers, initialMaxNumber = 75, init
                         </div>
                     </div>
 
+                    {/* Mic Controls */}
+                    <button
+                        onClick={() => setIsVoiceMuted(prev => !prev)}
+                        className={`p-1.5 md:p-2 rounded-full transition-all flex items-center gap-2 border ${isVoiceMuted ? 'text-slate-500 bg-slate-500/10 border-slate-500/20' : 'text-green-500 bg-green-500/10 border-green-500/20 shadow-[0_0_10px_#22c55e20]'}`}
+                        title={isVoiceMuted ? "Unmute Mic" : "Mute Mic"}
+                    >
+                        {isVoiceMuted ? <MicOff size={16} className="md:w-[18px] md:h-[18px]" /> : <Mic size={16} className="md:w-[18px] md:h-[18px]" />}
+                        <span className="hidden md:block text-[10px] font-black tracking-widest uppercase">
+                            {isVoiceMuted ? 'Muted' : 'Live'}
+                        </span>
+                    </button>
+
+                    <div className="h-6 w-px bg-white/10 mx-1"></div>
+
                     <button
                         onClick={() => window.location.reload()}
                         className="flex items-center gap-2 px-3 md:px-5 py-2 md:py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 transition-all group active:scale-95"
@@ -590,6 +606,16 @@ const Bingo = ({ gameId, inviteCode, initialPlayers, initialMaxNumber = 75, init
                     </div>
                     <p className="text-lg md:text-2xl font-black tracking-[0.5em] md:tracking-[1em] text-slate-500 uppercase mt-[-10px] md:mt-[-50px] relative z-10">Infiltrating</p>
                 </div>
+            )}
+
+            {/* Voice Logic */}
+            {socket && (
+                <VoiceChat
+                    socket={socket}
+                    gameId={gameId}
+                    players={players}
+                    isMuted={isVoiceMuted}
+                />
             )}
 
             {/* User Access Identification */}

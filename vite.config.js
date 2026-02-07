@@ -37,5 +37,18 @@ export default defineConfig({
       }
     })
   ],
+  define: {
+    global: 'globalThis',
+    'process.env': {},
+  },
+  resolve: {
+    alias: {
+      process: 'process/browser',
+      buffer: 'buffer',
+      stream: 'stream-browserify',
+      util: 'util',
+      events: 'events',
+    },
+  },
 })
 
